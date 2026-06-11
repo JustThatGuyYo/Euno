@@ -257,7 +257,7 @@ function generateReport() {
   const periodEl = document.getElementById('report-period');
   const nameEl = document.getElementById('report-name');
   const period = periodEl ? parseInt(periodEl.value) : 30;
-  const studentName = nameEl ? nameEl.value.trim().slice(0,100) : '';
+  const studentName = getStorage('user_name', '') || '';
   const checkins = getStorage('checkins',[]);
   const cutoff = new Date(); cutoff.setDate(cutoff.getDate()-period);
   const filtered = checkins.filter(c => new Date(c.date+'T12:00:00') >= cutoff);

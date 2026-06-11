@@ -345,6 +345,91 @@ function initTimePicker() {
   const dialog=document.getElementById('time-picker-dialog');
   const scrim=dialog&&dialog.querySelector('.picker-scrim');
   scrim&&scrim.addEventListener('click',closeTimePicker);
+
+  // Add drag functionality to clock handle
+  const handle = document.getElementById('tp-clock-handle');
+  const hand = document.getElementById('tp-clock-hand');
+  const clock = document.getElementById('tp-clock');
+  
+  if (handle && hand && clock) {
+    let isDragging = false;
+    let lastSnapValue = null;
+
+    const triggerHaptic = () => {
+      if ('vibrate' in navigator) {
+        navigator.vibrate(10);
+      }
+    };
+
+    const updateFromAngle = (angle) => {
+      const normalizedAngle = (angle + 360) % 360;
+      
+      if (tpMode === 'hour') {
+        const hourIndex = Math.round(normalizedAngle / 30);
+        const newHour = hourIndex === 0 ? 12 : hourIndex;
+        if (newHour !== tpHour) {
+          tpHour = newHour;
+          triggerHaptic();
+          renderTPClock();
+          updateTPSegments();
+          updateTPLabel();
+        }
+      } else {
+        const minuteIndex = Math.round(normalizedAngle / 6);
+        const newMinute = minuteIndex * 5;
+        if (newMinute !== tpMinute) {
+          tpMinute = newMinute;
+          triggerHaptic();
+          renderTPClock();
+          updateTPSegments();
+          updateTPLabel();
+        }
+      }
+    };
+
+    const getAngleFromEvent = (e) => {
+      const rect = clock.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      const angle = Math.atan2(clientY - centerY, clientX - centerX) * 180 / Math.PI + 90;
+      return angle;
+    };
+
+    const startDrag = (e) => {
+      isDragging = true;
+      hand.style.transition = 'none';
+      e.preventDefault();
+    };
+
+    const doDrag = (e) => {
+      if (!isDragging) return;
+      const angle = getAngleFromEvent(e);
+      hand.style.transform = `rotate(${angle}deg)`;
+      updateFromAngle(angle);
+      e.preventDefault();
+    };
+
+    const endDrag = () => {
+      isDragging = false;
+      hand.style.transition = 'transform 0.1s cubic-bezier(0.4, 0, 0.2, 1)';
+    };
+
+    // Handle drag events
+    handle.addEventListener('mousedown', startDrag);
+    handle.addEventListener('touchstart', startDrag, { passive: false });
+    
+    // Also allow dragging from the hand itself
+    hand.addEventListener('mousedown', startDrag);
+    hand.addEventListener('touchstart', startDrag, { passive: false });
+    
+    document.addEventListener('mousemove', doDrag);
+    document.addEventListener('touchmove', doDrag, { passive: false });
+    
+    document.addEventListener('mouseup', endDrag);
+    document.addEventListener('touchend', endDrag);
+  }
 }
 
 function openTimePicker(initialTime, callback) {

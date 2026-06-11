@@ -177,10 +177,6 @@
                 <option value="90">Last 90 days</option>
               </select>
             </div>
-            <div class="field-group">
-              <label class="field-label" for="report-name">Student Name (optional)</label>
-              <input type="text" id="report-name" class="input-field" placeholder="Enter name for report…" maxlength="100" aria-label="Student name for report">
-            </div>
             <button id="generate-report" class="btn-filled btn-full" type="button"><span class="material-icons-round" aria-hidden="true">download</span>Generate &amp; Download PDF</button>
           </div>
         </div>
@@ -285,7 +281,9 @@
       <div class="tp-clock-wrap" id="tp-clock-wrap" aria-hidden="true">
         <div class="tp-clock" id="tp-clock">
           <div class="tp-clock-center" id="tp-clock-center"></div>
-          <div class="tp-clock-hand" id="tp-clock-hand"></div>
+          <div class="tp-clock-hand" id="tp-clock-hand">
+            <div class="tp-clock-handle" id="tp-clock-handle"></div>
+          </div>
           <div class="tp-clock-numbers" id="tp-clock-numbers"></div>
         </div>
       </div>

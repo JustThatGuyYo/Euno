@@ -19,7 +19,43 @@ import { initSettings } from './settings/settings.js';
 import { initShop, renderShop, updateCoinDisplay } from './shop/shop.js';
 import { initStreakCalendar } from './streak/streakCalendar.js';
 import { initCountdown } from './countdown/countdown.js';
+import { getStorage, setStorage } from './core/storage.js';
+import { showToast } from './utils/notifications.js';
 import './migrations/migrateJournalReminders.js';
+
+function checkFirstTimeProfile() {
+  const profileName = getStorage('profile_name', '');
+  const profilePromptShown = getStorage('profile_prompt_shown', false);
+  
+  if (!profileName && !profilePromptShown) {
+    setStorage('profile_prompt_shown', true);
+    
+    setTimeout(() => {
+      const toast = document.createElement('div');
+      toast.className = 'toast toast-info';
+      toast.innerHTML = `
+        <div class="toast-content">
+          <span class="material-icons-round toast-icon">person</span>
+          <div class="toast-message">
+            <p class="toast-title">Complete Your Profile</p>
+            <p class="toast-body">Add your name to personalize your experience.</p>
+          </div>
+          <a href="settings.html" class="toast-action">Go to Settings</a>
+        </div>
+      `;
+      const container = document.getElementById('toast-container');
+      if (container) {
+        container.appendChild(toast);
+        setTimeout(() => toast.classList.add('show'), 10);
+        setTimeout(() => {
+          toast.classList.remove('show');
+          setTimeout(() => toast.remove(), 300);
+        }, 8000);
+      }
+    }, 2000);
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initOnboarding();
@@ -43,6 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initStreakCalendar();
   initCountdown();
   updateCoinDisplay();
+  checkFirstTimeProfile();
   if (typeof Notification !== 'undefined' && Notification.permission === 'default') {
   }
 });
