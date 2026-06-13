@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Disallow: /private/
+Sitemap: https://rainier-ps.github.io/Euno/sitemap.xml
+
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 2

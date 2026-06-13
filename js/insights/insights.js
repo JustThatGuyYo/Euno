@@ -303,7 +303,7 @@ function generateReport() {
         doc.text(`${c.date}: "${c.thoughts.slice(0,80)}${c.thoughts.length>80?'…':''}"`, 25, y, {maxWidth:165}); y+=10;
       }
     });
-    doc.save('studyhub-wellness-report.pdf');
+    doc.save('euno-wellness-report.pdf');
     showToast('Report downloaded!','success');
   } catch(e) { showToast('Error generating report: '+e.message,'error'); }
 }

@@ -23,7 +23,7 @@ Breathing exercises with 4-7-8, Box, and Calm techniques with visual feedback. G
 
 
 ### Shop
-StudyCoins system with item purchasing, inventory management, and coin history. Power ups include streak freeze, double coins, lucky spin, and focus boost.
+EunoCoins system with item purchasing, inventory management, and coin history. Power ups include streak freeze, double coins, lucky spin, and focus boost.
 
 ### Settings
 Profile management with name and gender. Theme selection with light, dark, and system options. Data export and import. Data clearing. Onboarding restart.
