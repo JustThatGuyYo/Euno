@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pop the Thought</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+    rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <link rel="stylesheet" href="css/pop-the-thought.css">
+</head>
+
+<body>
+  <a class="skip-link" href="#canvas">Skip to game board</a>
+
+  <div class="app-container">
+
+    <header class="top-app-bar">
+      <div class="app-bar-left">
+        <a href="../games.html" class="icon-button" aria-label="Back to Games">
+          <span class="material-icons-round">arrow_back</span>
+        </a>
+      </div>
+      <div class="app-bar-center">
+        <span class="material-symbols-outlined app-icon" aria-hidden="true">psychology</span>
+        <span class="app-title">Pop the Thought</span>
+      </div>
+      <div class="app-bar-right">
+        <button id="theme-toggle" class="icon-button" type="button" aria-label="Switch to dark theme"
+          aria-pressed="false">
+          <span class="material-symbols-outlined" aria-hidden="true">dark_mode</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="mobile-stats-bar" role="status" aria-live="polite" aria-label="Game statistics">
+      <div class="mobile-stat">
+        <span class="material-symbols-outlined mobile-stat-icon primary" aria-hidden="true">track_changes</span>
+        <div class="mobile-stat-info">
+          <span class="mobile-stat-label">Score</span>
+          <span id="score-count" class="mobile-stat-value" aria-atomic="true">0</span>
+        </div>
+      </div>
+      <div class="mobile-stat-divider" aria-hidden="true"></div>
+      <div class="mobile-stat">
+        <span class="material-symbols-outlined mobile-stat-icon error" aria-hidden="true" style="font-variation-settings:'FILL' 1">favorite</span>
+        <div class="mobile-stat-info">
+          <span class="mobile-stat-label">Lives</span>
+          <span id="lives-count" class="mobile-stat-value" aria-atomic="true">5</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-layout">
+
+      <aside class="sidebar" aria-label="Game information panel">
+        <div class="sidebar-body">
+
+          <div class="sidebar-section desktop-stats" id="desktop-stats">
+            <span class="section-label">Current Session</span>
+            <div class="stat-card">
+              <div class="stat-icon-wrap primary" aria-hidden="true">
+                <span class="material-symbols-outlined">track_changes</span>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">Score</span>
+                <span id="score-count-desktop" class="stat-value" aria-atomic="true">0</span>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon-wrap error" aria-hidden="true">
+                <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">favorite</span>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">Lives</span>
+                <span id="lives-count-desktop" class="stat-value" aria-atomic="true">5</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar-section">
+            <span class="section-label">How to Play</span>
+            <div class="how-to-list" role="list">
+              <div class="how-to-item" role="listitem">
+                <span class="material-symbols-outlined" aria-hidden="true">touch_app</span>
+                <span class="how-to-text">Tap a rising thought card to dismiss it and earn 100 points.</span>
+              </div>
+              <div class="how-to-item" role="listitem">
+                <span class="material-symbols-outlined" aria-hidden="true">keyboard</span>
+                <span class="how-to-text">Use Tab to focus a card, then Space or Enter to pop it.</span>
+              </div>
+              <div class="how-to-item" role="listitem">
+                <span class="material-symbols-outlined" aria-hidden="true">warning</span>
+                <span class="how-to-text">Each thought that escapes costs one life. You have five.</span>
+              </div>
+              <div class="how-to-item" role="listitem">
+                <span class="material-symbols-outlined" aria-hidden="true">speed</span>
+                <span class="how-to-text">Thoughts rise faster over time. Stay focused.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar-section">
+            <span class="section-label">Best Score</span>
+            <div class="stat-card">
+              <div class="stat-icon-wrap primary" aria-hidden="true">
+                <span class="material-symbols-outlined">emoji_events</span>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">Personal Best</span>
+                <span id="best-score" class="stat-value">—</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </aside>
+
+      <main class="content-viewport">
+
+        <div id="canvas" role="region" aria-label="Game board — tap rising thoughts to dismiss them" tabindex="0">
+        </div>
+
+        <button id="help-fab" class="help-fab" type="button" aria-label="How to play" aria-haspopup="dialog">
+          <span class="material-symbols-outlined" aria-hidden="true">help</span>
+        </button>
+
+        <div id="help-screen" class="overlay" role="dialog" aria-modal="true" aria-labelledby="help-title">
+          <div class="overlay-card">
+            <button class="overlay-close" id="help-close" type="button" aria-label="Close how to play">
+              <span class="material-symbols-outlined" aria-hidden="true">close</span>
+            </button>
+            <div class="overlay-icon" aria-hidden="true">
+              <span class="material-symbols-outlined">help</span>
+            </div>
+            <h2 id="help-title" class="overlay-title">How to Play</h2>
+            <div class="how-to-list help-overlay-list" role="list">
+              <div class="how-to-item" role="listitem">
+                <span class="material-symbols-outlined" aria-hidden="true">touch_app</span>
+                <span class="how-to-text">Tap a rising thought to dismiss it and earn 100 points.</span>
+              </div>
+              <div class="how-to-item" role="listitem">
+                <span class="material-symbols-outlined" aria-hidden="true">warning</span>
+                <span class="how-to-text">Thoughts that escape cost you one of your five lives.</span>
+              </div>
+              <div class="how-to-item" role="listitem">
+                <span class="material-symbols-outlined" aria-hidden="true">speed</span>
+                <span class="how-to-text">Speed increases over time — stay sharp.</span>
+              </div>
+              <div class="how-to-item" role="listitem">
+                <span class="material-symbols-outlined" aria-hidden="true">pause_circle</span>
+                <span class="how-to-text">The game pauses while this panel is open and resumes when you close it.</span>
+              </div>
+            </div>
+            <button id="help-resume-btn" class="btn btn-primary" type="button" style="margin-top:20px;">
+              <span class="material-symbols-outlined" aria-hidden="true">play_arrow</span>
+              <span>Resume</span>
+            </button>
+          </div>
+        </div>
+
+        <div id="start-screen" class="overlay active" role="dialog" aria-modal="true" aria-labelledby="start-title"
+          aria-describedby="start-desc">
+          <div class="overlay-card">
+            <div class="overlay-icon" aria-hidden="true">
+              <span class="material-symbols-outlined">psychology</span>
+            </div>
+            <h1 id="start-title" class="overlay-title">Pop the Thought</h1>
+            <p id="start-desc" class="overlay-subtitle">Intrusive thoughts will rise from the bottom. Tap or press Space
+              / Enter to dismiss them before they escape. Five missed thoughts ends the session.</p>
+            <button id="start-btn" class="btn btn-primary" type="button">
+              <span class="material-symbols-outlined" aria-hidden="true">play_arrow</span>
+              <span>Begin Session</span>
+            </button>
+          </div>
+        </div>
+
+        <div id="game-over-screen" class="overlay" role="dialog" aria-modal="true" aria-labelledby="end-title"
+          aria-describedby="end-desc">
+          <div class="overlay-card">
+            <div class="overlay-icon" aria-hidden="true">
+              <span class="material-symbols-outlined">workspace_premium</span>
+            </div>
+            <h1 id="end-title" class="overlay-title">Session Complete</h1>
+            <p id="end-desc" class="overlay-subtitle">You've reached your limit for this session. Review your score and
+              start again whenever you're ready.</p>
+            <div class="final-score-box">
+              <span class="final-label">Final Score</span>
+              <span id="final-score" class="final-value" aria-live="polite">0</span>
+            </div>
+            <p id="pt-reward-msg" class="reward-msg" aria-live="polite"></p>
+            <button id="restart-btn" class="btn btn-primary" type="button">
+              <span class="material-symbols-outlined" aria-hidden="true">refresh</span>
+              <span>Try Again</span>
+            </button>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="js/game-utils.js"></script>
+  <script src="js/pop-the-thought.js"></script>
+</body>
+
+</html>

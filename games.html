@@ -13,7 +13,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Euno — Wellness &amp; Study Companion">
 <meta name="twitter:description" content="Track your mood, build healthy habits, and stay focused with Euno.">
-<title>Wellness & Mental Health - Euno Wellness App</title>
+<title>Games - Euno Mental Health App</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
@@ -76,10 +76,10 @@
         <span class="material-icons-round nav-icon" aria-hidden="true">menu_book</span>
         <span class="nav-label">Diary</span>
       </a>
-      <a href="wellness.html" class="nav-item active" aria-label="Wellness">
+      <a href="games.html" class="nav-item active" aria-label="Games">
         <span class="nav-indicator" aria-hidden="true"></span>
         <span class="material-icons-round nav-icon" aria-hidden="true">extension</span>
-        <span class="nav-label">Wellness</span>
+        <span class="nav-label">Games</span>
       </a>
       <a href="shop.html" class="nav-item" aria-label="Shop">
         <span class="nav-indicator" aria-hidden="true"></span>
@@ -115,83 +115,71 @@
         <a href="index.html" class="drawer-item"><span class="material-icons-round" aria-hidden="true">home</span>Home</a>
         <a href="checkin.html" class="drawer-item"><span class="material-icons-round" aria-hidden="true">sentiment_satisfied</span>Check-In</a>
         <a href="diary.html" class="drawer-item"><span class="material-icons-round" aria-hidden="true">menu_book</span>Diary</a>
-        <a href="wellness.html" class="drawer-item active"><span class="material-icons-round" aria-hidden="true">extension</span>Wellness</a>
+        <a href="games.html" class="drawer-item active"><span class="material-icons-round" aria-hidden="true">extension</span>Games</a>
         <a href="shop.html" class="drawer-item"><span class="material-icons-round" aria-hidden="true">storefront</span>Shop</a>
         <div class="drawer-divider" role="separator"></div>
         <a href="settings.html" class="drawer-item"><span class="material-icons-round" aria-hidden="true">settings</span>Settings</a>
       </nav>
     </div>
 
-    <section class="page" id="page-wellness" aria-label="Wellness activities">
+        <section class="page" id="page-games" aria-label="Games">
       <div class="page-inner">
         <div class="mobile-page-header">
           <a href="index.html" class="mobile-back-btn" aria-label="Back to home">
             <span class="material-icons-round" aria-hidden="true">arrow_back</span>
           </a>
-          <span class="mobile-page-title">Wellness</span>
+          <span class="mobile-page-title">Games</span>
         </div>
         <header class="page-header">
-          <h1 class="page-title">Wellness</h1>
+          <h1 class="page-title">Games Dashboard</h1>
         </header>
-        <div class="tab-bar" role="tablist" aria-label="Wellness sections">
-          <button class="tab active" data-wtab="breathing" role="tab" aria-selected="true">Breathing</button>
-          <button class="tab" data-wtab="gratitude" role="tab" aria-selected="false">Gratitude</button>
-          <button class="tab" data-wtab="challenges" role="tab" aria-selected="false">Challenges</button>
-        </div>
-        <div class="wtab-panel active" id="wtab-breathing">
-          <div class="card breathing-card">
-            <h2 class="card-title">Breathing Exercise</h2>
-            <div class="chip-group breathing-selector" role="group" aria-label="Breathing technique">
-              <button class="chip active" data-type="478" type="button" aria-pressed="true">4-7-8</button>
-              <button class="chip" data-type="box" type="button" aria-pressed="false">Box</button>
-              <button class="chip" data-type="calm" type="button" aria-pressed="false">Calm</button>
-            </div>
-            <div class="breathing-stage-wrap">
-              <div class="breathing-stage" aria-live="polite" aria-atomic="true">
-                <div class="breathing-ring-wrap" id="breathing-ring-wrap">
-                  <div class="breathing-ring" id="breathing-ring" aria-hidden="true"></div>
-                  <div class="breathing-perimeter" id="breathing-perimeter" aria-hidden="true">
-                    <div class="perimeter-side perimeter-top" id="perimeter-top"></div>
-                    <div class="perimeter-side perimeter-right" id="perimeter-right"></div>
-                    <div class="perimeter-side perimeter-bottom" id="perimeter-bottom"></div>
-                    <div class="perimeter-side perimeter-left" id="perimeter-left"></div>
-                  </div>
-                  <div class="breathing-circle" id="breathing-circle">
-                    <span class="material-icons-round breath-icon" aria-hidden="true">air</span>
-                    <span class="breath-instruction" id="breath-instruction">Press Start</span>
-                  </div>
-                </div>
-              </div>
-              <p class="breath-count">Cycles completed: <strong id="cycle-count">0</strong></p>
-            </div>
-            <div class="breathing-controls">
-              <button id="breath-toggle" class="btn-filled" type="button" data-state="start"><span class="material-icons-round" aria-hidden="true">play_arrow</span>Start</button>
 
+        <div class="games-grid-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; padding: 16px 0;">
+          <a href="games/control-or-let-go.html" class="card game-card" style="text-decoration: none; display: flex; flex-direction: column; transition: transform 0.2s; border-radius: 24px; overflow: hidden; padding: 0;">
+            <div style="background: var(--md-sys-color-primary-container, #EADDFF); color: var(--md-sys-color-on-primary-container, #21005D); padding: 48px 16px; display: flex; justify-content: center; align-items: center;">
+              <span class="material-icons-round" style="font-size: 56px;" aria-hidden="true">self_improvement</span>
             </div>
-          </div>
-        </div>
-        <div class="wtab-panel" id="wtab-gratitude">
-          <div class="card">
-            <h2 class="card-title">Gratitude Diary</h2>
-            <p class="card-body">Write three things you're grateful for today.</p>
-            <div class="field-group"><label class="field-label" for="gratitude-1">1. I'm grateful for…</label><input type="text" id="gratitude-1" class="input-field" maxlength="200" placeholder="Something good in your life…" aria-label="First gratitude"></div>
-            <div class="field-group"><label class="field-label" for="gratitude-2">2. Something I enjoyed today…</label><input type="text" id="gratitude-2" class="input-field" maxlength="200" placeholder="A moment, person, or thing…" aria-label="Second gratitude"></div>
-            <div class="field-group"><label class="field-label" for="gratitude-3">3. A challenge I learned from…</label><input type="text" id="gratitude-3" class="input-field" maxlength="200" placeholder="Growth comes from challenges…" aria-label="Third gratitude"></div>
-            <button id="save-gratitude" class="btn-filled btn-full" type="button"><span class="material-icons-round" aria-hidden="true">favorite</span>Save Today's Gratitude</button>
-            <div id="gratitude-history" class="gratitude-history" aria-label="Gratitude entry history"></div>
-          </div>
-        </div>
-        <div class="wtab-panel" id="wtab-challenges">
-          <div class="card">
-            <h2 class="card-title">Self-Care Challenges</h2>
-            <p class="card-body">Complete daily micro-challenges to build healthy habits.</p>
-            <div id="challenges-grid" class="challenges-grid" role="list" aria-label="Daily challenges"></div>
-          </div>
-          <div class="card">
-            <h2 class="card-title">Reflection Prompts</h2>
-            <blockquote class="reflection-prompt-box" id="reflection-prompt" aria-live="polite"></blockquote>
-            <button id="new-prompt" class="btn-outlined" type="button"><span class="material-icons-round" aria-hidden="true">refresh</span>New Prompt</button>
-          </div>
+            <div style="padding: 24px;">
+              <h2 class="card-title" style="margin-bottom: 8px;">Control Or Let Go</h2>
+              <p class="card-body" style="color: var(--md-sys-color-on-surface-variant); margin: 0;">Learn what you can control and let go of what you can't.</p>
+            </div>
+          </a>
+          <a href="games/friendship-flowers.html" class="card game-card" style="text-decoration: none; display: flex; flex-direction: column; transition: transform 0.2s; border-radius: 24px; overflow: hidden; padding: 0;">
+            <div style="background: var(--md-sys-color-secondary-container, #E8DEF8); color: var(--md-sys-color-on-secondary-container, #1D192B); padding: 48px 16px; display: flex; justify-content: center; align-items: center;">
+              <span class="material-icons-round" style="font-size: 56px;" aria-hidden="true">local_florist</span>
+            </div>
+            <div style="padding: 24px;">
+              <h2 class="card-title" style="margin-bottom: 8px;">Grow Friendship Flowers</h2>
+              <p class="card-body" style="color: var(--md-sys-color-on-surface-variant); margin: 0;">Nurture your friendships by growing beautiful flowers.</p>
+            </div>
+          </a>
+          <a href="games/organize-desk.html" class="card game-card" style="text-decoration: none; display: flex; flex-direction: column; transition: transform 0.2s; border-radius: 24px; overflow: hidden; padding: 0;">
+            <div style="background: var(--md-sys-color-tertiary-container, #FFD8E4); color: var(--md-sys-color-on-tertiary-container, #31111D); padding: 48px 16px; display: flex; justify-content: center; align-items: center;">
+              <span class="material-icons-round" style="font-size: 56px;" aria-hidden="true">inventory_2</span>
+            </div>
+            <div style="padding: 24px;">
+              <h2 class="card-title" style="margin-bottom: 8px;">Organize The Desk</h2>
+              <p class="card-body" style="color: var(--md-sys-color-on-surface-variant); margin: 0;">Clear your mind by organizing a messy desk.</p>
+            </div>
+          </a>
+          <a href="games/pop-the-thought.html" class="card game-card" style="text-decoration: none; display: flex; flex-direction: column; transition: transform 0.2s; border-radius: 24px; overflow: hidden; padding: 0;">
+            <div style="background: var(--md-sys-color-error-container, #F9DEDC); color: var(--md-sys-color-on-error-container, #410E0B); padding: 48px 16px; display: flex; justify-content: center; align-items: center;">
+              <span class="material-icons-round" style="font-size: 56px;" aria-hidden="true">bubble_chart</span>
+            </div>
+            <div style="padding: 24px;">
+              <h2 class="card-title" style="margin-bottom: 8px;">Pop The Thought</h2>
+              <p class="card-body" style="color: var(--md-sys-color-on-surface-variant); margin: 0;">Pop negative thoughts away like bubbles.</p>
+            </div>
+          </a>
+          <a href="games/recharge-pet.html" class="card game-card" style="text-decoration: none; display: flex; flex-direction: column; transition: transform 0.2s; border-radius: 24px; overflow: hidden; padding: 0;">
+            <div style="background: var(--md-sys-color-primary-container, #EADDFF); color: var(--md-sys-color-on-primary-container, #21005D); padding: 48px 16px; display: flex; justify-content: center; align-items: center;">
+              <span class="material-icons-round" style="font-size: 56px;" aria-hidden="true">pets</span>
+            </div>
+            <div style="padding: 24px;">
+              <h2 class="card-title" style="margin-bottom: 8px;">Recharge The Pet</h2>
+              <p class="card-body" style="color: var(--md-sys-color-on-surface-variant); margin: 0;">Help your virtual pet regain its energy.</p>
+            </div>
+          </a>
         </div>
       </div>
     </section>
@@ -202,7 +190,7 @@
     <a href="checkin.html" class="bnav-item" aria-label="Check-In">
       <div class="bnav-icon-wrap"><span class="material-icons-round bnav-icon" aria-hidden="true">sentiment_satisfied</span></div>
     </a>
-    <a href="wellness.html" class="bnav-item bnav-center active" aria-label="Wellness">
+    <a href="games.html" class="bnav-item bnav-center active" aria-label="Games">
       <span class="bnav-fab" aria-hidden="true"><span class="material-icons-round" aria-hidden="true">extension</span></span>
     </a>
     <a href="diary.html" class="bnav-item" aria-label="Diary">
@@ -306,5 +294,26 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script type="module" src="js/script.js"></script>
+<script>
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+      const overlays = document.querySelectorAll('[role="dialog"], .onboarding-overlay, .picker-dialog, .mobile-drawer');
+      overlays.forEach(function(overlay) {
+        if (overlay.style.display !== 'none' && !overlay.classList.contains('hidden') && overlay.getAttribute('aria-hidden') !== 'true') {
+          if (overlay.id === 'mobile-drawer') {
+            document.getElementById('drawer-close').click();
+          } else {
+            overlay.style.display = 'none';
+            overlay.setAttribute('aria-hidden', 'true');
+            if (overlay.classList.contains('picker-dialog')) {
+              overlay.classList.remove('active');
+            }
+          }
+        }
+      });
+    }
+  });
+</script>
 </body>
 </html>
+

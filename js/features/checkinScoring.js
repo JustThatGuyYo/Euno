@@ -45,11 +45,11 @@ export const DIMENSION_META = {
 };
 
 const SEVERITY_RANGES = {
-  stress: [[0, 2, 'Low'], [3, 4, 'Mild'], [5, 7, 'Moderate'], [8, Infinity, 'High']],
-  anxiety: [[0, 2, 'Low'], [3, 4, 'Mild'], [5, 7, 'Moderate'], [8, Infinity, 'High']],
-  burnout: [[0, 2, 'Low'], [3, 4, 'Mild'], [5, 7, 'Moderate'], [8, Infinity, 'High']],
-  overthinking: [[0, 1, 'Low'], [2, 3, 'Mild'], [4, 5, 'Moderate'], [6, Infinity, 'High']],
-  loneliness: [[0, 2, 'Low'], [3, 4, 'Mild'], [5, 7, 'Moderate'], [8, Infinity, 'High']]
+  stress: [[0, 1, 'Low'], [2, 3, 'Mild'], [4, 5, 'Moderate'], [6, Infinity, 'High']],
+  anxiety: [[0, 1, 'Low'], [2, 3, 'Mild'], [4, 5, 'Moderate'], [6, Infinity, 'High']],
+  burnout: [[0, 1, 'Low'], [2, 3, 'Mild'], [4, 5, 'Moderate'], [6, Infinity, 'High']],
+  overthinking: [[0, 1, 'Low'], [2, 2, 'Mild'], [3, 3, 'Moderate'], [4, Infinity, 'High']],
+  loneliness: [[0, 1, 'Low'], [2, 3, 'Mild'], [4, 5, 'Moderate'], [6, Infinity, 'High']]
 };
 
 export function calculateScores(entry) {
@@ -147,3 +147,4 @@ export function getCheckinWellnessLevel(checkin) {
   if (!scores) return 0;
   return burdenToWellnessLevel(scores);
 }
+

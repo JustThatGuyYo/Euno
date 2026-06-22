@@ -18,6 +18,29 @@ import { renderWellnessDot } from '../utils/ui.js';
 const GRAD_FIELDS = ['stress_level', 'worry_level', 'thought_loop_level', 'energy_level', 'social_connection_level'];
 const MAX_EMOTIONS = 3;
 
+const CONDITION_INFO = {
+  stress: {
+    title: 'Stress',
+    body: `<h3>What is Stress?</h3><p>Stress is the feeling of being under pressure or having more demands than you feel able to handle at the moment.</p><h3>Common Signs</h3><ul><li>Feeling overwhelmed</li><li>Difficulty relaxing</li><li>Irritability</li><li>Headaches or muscle tension</li><li>Trouble concentrating</li></ul><h3>Example</h3><p>You have several assignments due this week, a club meeting tomorrow, and an upcoming exam. You feel pressured and worried about finishing everything on time.</p>`
+  },
+  anxiety: {
+    title: 'Anxiety',
+    body: `<h3>What is Anxiety?</h3><p>Anxiety is excessive worry, nervousness, or fear about situations that may happen in the future, even when there is no immediate danger.</p><h3>Common Signs</h3><ul><li>Constant worrying</li><li>Feeling nervous</li><li>Racing thoughts</li><li>Difficulty sleeping</li><li>Feeling restless</li></ul><h3>Example</h3><p>An exam is next week. Even though you have prepared, you keep imagining failing and cannot stop worrying about what might happen.</p>`
+  },
+  burnout: {
+    title: 'Burnout',
+    body: `<h3>What is Burnout?</h3><p>Burnout is a state of emotional, mental, and physical exhaustion caused by prolonged stress and insufficient recovery or rest.</p><h3>Common Signs</h3><ul><li>Feeling exhausted most of the time</li><li>Lack of motivation</li><li>Reduced productivity</li><li>Feeling emotionally drained</li><li>Losing interest in activities you usually enjoy</li></ul><h3>Example</h3><p>You have been studying, attending activities, and working on projects every day for weeks. Even after resting, you feel tired and struggle to find motivation.</p>`
+  },
+  overthinking: {
+    title: 'Overthinking',
+    body: `<h3>What is Overthinking?</h3><p>Overthinking is repeatedly thinking about the same situation, problem, or decision without reaching a solution.</p><h3>Common Signs</h3><ul><li>Replaying conversations in your head</li><li>Difficulty making decisions</li><li>Analyzing every possibility</li><li>Trouble focusing on the present</li></ul><h3>Example</h3><p>After giving a class presentation, you spend hours thinking about every mistake you might have made and wondering what others thought of you.</p>`
+  },
+  loneliness: {
+    title: 'Loneliness',
+    body: `<h3>What is Loneliness?</h3><p>Loneliness is the feeling of being disconnected from others or lacking meaningful social connections. It can occur even when you are surrounded by people.</p><h3>Common Signs</h3><ul><li>Feeling isolated</li><li>Feeling left out</li><li>Feeling misunderstood</li><li>Wanting connection but not knowing how to reach out</li></ul><h3>Example</h3><p>You spend time at school with classmates every day, but you feel like nobody truly understands you or knows how you are feeling.</p>`
+  }
+};
+
 export function initCheckin() {
   const state = {
     moods: [],
@@ -69,22 +92,126 @@ export function initCheckin() {
       const severity = getSeverity(score, dim);
       const meta = DIMENSION_META[dim];
       const sevClass = severity.toLowerCase();
-      return `<div class="challenge-dim-row">
+      return `<div class="challenge-dim-row condition-capsule" data-condition="${dim}" style="cursor: pointer; position: relative;" tabindex="0" role="button" aria-label="Learn more about ${meta.label}">
         <span class="material-icons-round challenge-dim-icon" aria-hidden="true">${meta.icon}</span>
         <span class="challenge-dim-label">${meta.label}</span>
         <span class="challenge-dim-score">${score}</span>
         <span class="challenge-dim-severity challenge-dim-severity--${sevClass}">${severity}</span>
+        <span class="material-icons-round" aria-hidden="true" style="font-size: 16px; margin-left: auto; color: var(--md-outline);">info</span>
       </div>`;
     }).join('');
 
     if (!challenges.length) {
       alertsEl.innerHTML = `<div class="challenge-alert challenge-alert--ok"><span class="material-icons-round" aria-hidden="true">check_circle</span>No significant challenges detected today.</div>`;
     } else {
-      alertsEl.innerHTML = challenges.map(c => {
+      let html = challenges.map(c => {
         const meta = DIMENSION_META[c];
         return `<div class="challenge-alert challenge-alert--warn"><span class="material-icons-round" aria-hidden="true">info</span>${meta.label} challenge detected — consider using wellness tools.</div>`;
       }).join('');
+      
+      const REC_MAP = {
+          'stress': { name: 'Organize the Desk', url: 'games/organize-desk.html', icon: 'inventory_2' },
+          'anxiety': { name: 'Control or Let Go', url: 'games/control-or-let-go.html', icon: 'self_improvement' },
+          'burnout': { name: 'Recharge the Pet', url: 'games/recharge-pet.html', icon: 'pets' },
+          'overthinking': { name: 'Pop the Thought', url: 'games/pop-the-thought.html', icon: 'bubble_chart' },
+          'loneliness': { name: 'Grow Friendship Flowers', url: 'games/friendship-flowers.html', icon: 'local_florist' }
+      };
+      
+      const recs = challenges.map(c => REC_MAP[c]).filter(Boolean);
+      if (recs.length > 0) {
+          html += `<div style="margin-top: 16px;">
+              <h3 style="font-size: 1rem; margin-bottom: 8px;">Recommended Activities</h3>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                  ${recs.map(r => `
+                      <a href="${r.url}" class="card" style="text-decoration:none; display:flex; align-items:center; gap:16px; padding:12px; background:var(--md-sys-color-secondary-container, #E8DEF8); color:var(--md-sys-color-on-secondary-container, #1D192B); border-radius:16px;">
+                          <span class="material-icons-round" style="font-size:24px;">${r.icon}</span>
+                          <span style="font-weight:600;">Play: ${r.name}</span>
+                          <span class="material-icons-round" style="margin-left:auto; font-size:16px;">arrow_forward_ios</span>
+                      </a>
+                  `).join('')}
+              </div>
+          </div>`;
+      }
+      alertsEl.innerHTML = html;
     }
+  }
+
+  function showConditionInfo(dim) {
+    const dialog = document.getElementById('condition-info-dialog');
+    const titleEl = document.getElementById('condition-info-title');
+    const bodyEl = document.getElementById('condition-info-body');
+    if (!dialog || !titleEl || !bodyEl) return;
+    
+    if (dim === 'full') {
+      titleEl.textContent = 'Understanding Your Check-In Results';
+      let html = '<p>The daily check-in helps identify common emotional and mental well-being challenges. These results are not a diagnosis and are intended to provide self-awareness and suggest healthy coping activities.</p><hr>';
+      const dims = ['stress', 'anxiety', 'burnout', 'overthinking', 'loneliness'];
+      dims.forEach(d => {
+        html += `<h2>${CONDITION_INFO[d].title}</h2>${CONDITION_INFO[d].body}<hr>`;
+      });
+      bodyEl.innerHTML = html;
+    } else if (CONDITION_INFO[dim]) {
+      titleEl.textContent = CONDITION_INFO[dim].title;
+      bodyEl.innerHTML = CONDITION_INFO[dim].body;
+    } else {
+      return;
+    }
+    
+    dialog.style.display = 'flex';
+    dialog.classList.add('active');
+    dialog.setAttribute('aria-hidden', 'false');
+  }
+
+  window.showConditionInfo = showConditionInfo;
+
+  function hideConditionInfo() {
+    const dialog = document.getElementById('condition-info-dialog');
+    if (dialog) {
+      dialog.style.display = 'none';
+      dialog.classList.remove('active');
+      dialog.setAttribute('aria-hidden', 'true');
+    }
+  }
+
+  const scrim = document.getElementById('condition-info-scrim');
+  const closeBtn = document.getElementById('condition-info-close');
+  if (scrim) scrim.addEventListener('click', hideConditionInfo);
+  if (closeBtn) closeBtn.addEventListener('click', hideConditionInfo);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const dialog = document.getElementById('condition-info-dialog');
+      if (dialog && dialog.classList.contains('active')) {
+        hideConditionInfo();
+      }
+    }
+  });
+
+  if (dimensionsEl) {
+    dimensionsEl.addEventListener('click', (e) => {
+      const capsule = e.target.closest('.condition-capsule');
+      if (capsule) {
+        showConditionInfo(capsule.dataset.condition);
+      }
+    });
+    dimensionsEl.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        const capsule = e.target.closest('.condition-capsule');
+        if (capsule) {
+          e.preventDefault();
+          showConditionInfo(capsule.dataset.condition);
+        }
+      }
+    });
+  }
+
+  const fullInfoFab = document.getElementById('full-info-fab');
+  if (fullInfoFab) {
+    fullInfoFab.addEventListener('click', () => {
+      if (typeof window.showConditionInfo === 'function') {
+        window.showConditionInfo('full');
+      }
+    });
   }
 
   emotionGrid && emotionGrid.querySelectorAll('[data-emotion]').forEach(btn => {
@@ -108,6 +235,18 @@ export function initCheckin() {
       updatePreview();
     });
   });
+
+  const historyEl = document.getElementById('checkin-history');
+  if (historyEl) {
+    historyEl.addEventListener('click', (e) => {
+      const tag = e.target.closest('.checkin-emotion-tag[data-condition]');
+      if (tag) {
+        if (typeof window.showConditionInfo === 'function') {
+          window.showConditionInfo(tag.dataset.condition);
+        }
+      }
+    });
+  }
 
   document.querySelectorAll('.grad-btn-group').forEach(group => {
     const field = group.dataset.field;
@@ -170,6 +309,9 @@ export function initCheckin() {
 
     const existingBanner = document.getElementById('checkin-done-banner');
     if (existingBanner) existingBanner.remove();
+    
+    const existingRecs = document.getElementById('checkin-recs-card');
+    if (existingRecs) existingRecs.remove();
 
     if (alreadyDone) {
       saveBtn.disabled = true;
@@ -180,13 +322,49 @@ export function initCheckin() {
       banner.id = 'checkin-done-banner';
       banner.className = 'checkin-done-banner';
       banner.setAttribute('role', 'status');
+      const todayCheckin = checkins.find(c => c.date === todayStr());
+      let recsHtml = '';
+      if (todayCheckin && todayCheckin.challenges && todayCheckin.challenges.length > 0) {
+        const REC_MAP = {
+            'stress': { name: 'Organize the Desk', url: 'games/organize-desk.html', icon: 'inventory_2' },
+            'anxiety': { name: 'Control or Let Go', url: 'games/control-or-let-go.html', icon: 'self_improvement' },
+            'burnout': { name: 'Recharge the Pet', url: 'games/recharge-pet.html', icon: 'pets' },
+            'overthinking': { name: 'Pop the Thought', url: 'games/pop-the-thought.html', icon: 'bubble_chart' },
+            'loneliness': { name: 'Grow Friendship Flowers', url: 'games/friendship-flowers.html', icon: 'local_florist' }
+        };
+        const recs = todayCheckin.challenges.map(c => REC_MAP[c]).filter(Boolean);
+        if (recs.length > 0) {
+            recsHtml = `<div id="checkin-recs-card" class="card" style="margin-top: 16px;">
+                <h3 style="font-size: 1.1rem; margin-bottom: 12px; color:var(--md-text-primary);">Recommended Activities</h3>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    ${recs.map(r => `
+                        <a href="${r.url}" class="card" style="text-decoration:none; display:flex; align-items:center; gap:16px; padding:12px; background:var(--md-surface-low); color:var(--md-text-primary); border: 1px solid var(--md-outline-variant); border-radius:16px;">
+                            <span class="material-icons-round" style="font-size:24px; color:var(--md-primary);">${r.icon}</span>
+                            <span style="font-weight:600;">Play: ${r.name}</span>
+                            <span class="material-icons-round" style="margin-left:auto; font-size:16px; color:var(--md-text-secondary);">arrow_forward_ios</span>
+                        </a>
+                    `).join('')}
+                </div>
+            </div>`;
+        }
+      }
+
       banner.innerHTML = `
-        <span class="material-icons-round checkin-done-icon" aria-hidden="true">check_circle</span>
-        <div>
-          <strong>You've already checked in today!</strong>
-          <p>Come back tomorrow to log your next check-in. Keep the streak going!</p>
-        </div>`;
+        <div style="display:flex; gap:16px;">
+            <span class="material-icons-round checkin-done-icon" aria-hidden="true" style="font-size:32px;">check_circle</span>
+            <div>
+              <strong style="display:block; font-size:1.1rem; margin-bottom:4px;">You've already checked in today!</strong>
+              <p style="margin:0;">Come back tomorrow to log your next check-in. Keep the streak going!</p>
+            </div>
+        </div>
+      `;
       saveBtn.parentNode.insertBefore(banner, saveBtn);
+      
+      if (recsHtml) {
+        const div = document.createElement('div');
+        div.innerHTML = recsHtml;
+        saveBtn.parentNode.insertBefore(div.firstElementChild, saveBtn);
+      }
     } else {
       saveBtn.disabled = false;
       saveBtn.removeAttribute('aria-disabled');
@@ -266,10 +444,22 @@ function renderCheckinHistory() {
   }
   el.innerHTML = checkins.map(c => {
     const moods = c.moods || [];
+    const EMOTION_TO_CONDITION = {
+      'Stressed': 'stress',
+      'Overwhelmed': 'stress',
+      'Frustrated': 'stress',
+      'Nervous': 'anxiety',
+      'Exhausted': 'burnout',
+      'Lonely': 'loneliness'
+    };
+    
     const moodTags = moods.map(m => {
       const opt = EMOTION_OPTIONS.find(e => e.id === m);
       const icon = opt ? opt.icon : 'mood';
-      return `<span class="checkin-emotion-tag"><span class="material-icons-round" aria-hidden="true">${icon}</span>${sanitize(m)}</span>`;
+      const dim = EMOTION_TO_CONDITION[m];
+      const clickAttr = dim ? `data-condition="${dim}"` : '';
+      const styleAttr = dim ? 'style="cursor: pointer;" title="Click to learn more"' : '';
+      return `<span class="checkin-emotion-tag" ${styleAttr} ${clickAttr}><span class="material-icons-round" aria-hidden="true">${icon}</span>${sanitize(m)}</span>`;
     }).join('');
     const challengeCount = (c.challenges || []).length;
     const summary = challengeCount

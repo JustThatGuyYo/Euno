@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, vertical-align=baseline">
+  <title>Recharge the Pet</title>
+  <link rel="stylesheet" href="css/recharge-pet.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=DM+Sans:wght@400;500;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+</head>
+
+<body>
+<div class="app-shell" id="app-root">
+    <header class="top-app-bar" role="banner" style="height: 64px; flex-shrink: 0; background-color: var(--surface-low, #F7F2FA); border-bottom: 1px solid var(--outline-variant, #CAC4D0); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 0 16px; z-index: 10; gap: 8px;">
+      <div style="display: flex; align-items: center; justify-content: flex-start;">
+        <a href="../games.html" class="icon-button" aria-label="Back to Games" style="width: 44px; height: 44px; border-radius: 9999px; border: none; background: transparent; color: var(--text-primary, #1C1B1F); cursor: pointer; display: grid; place-items: center; text-decoration: none;">
+          <span class="material-icons-round">arrow_back</span>
+        </a>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px; justify-content: center;">
+        <span class="material-symbols-outlined" aria-hidden="true" style="color: var(--primary, #6750A4); font-size: 22px;">pets</span>
+        <span style="font-family: var(--font-display, 'Plus Jakarta Sans', sans-serif); font-size: 17px; font-weight: 600; color: var(--text-primary, #1C1B1F); white-space: nowrap;">Vitality Monitor</span>
+      </div>
+      <div style="display: flex; align-items: center; justify-content: flex-end; gap: 4px;">
+        <button id="theme-toggle" class="icon-button" type="button" aria-label="Switch theme" aria-pressed="false" style="width: 44px; height: 44px; border-radius: 9999px; border: none; background: transparent; color: var(--text-primary, #1C1B1F); cursor: pointer; display: grid; place-items: center;">
+          <span class="material-symbols-outlined" aria-hidden="true">dark_mode</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="pet-column" aria-label="Pet Status">
+        <section class="card card--filled pet-hero-stage">
+          <div class="pet-scenery">
+            <div id="combat-text-container" class="damage-layer"></div>
+
+            <div id="axolotl-pet" class="axolotl-vector state-low idle-animation">
+              <svg viewBox="0 0 100 100" aria-hidden="true">
+                <path class="gill gill-l1" d="M30 40 C14 34 14 44 30 46" stroke="currentColor" stroke-width="3.5"
+                  stroke-linecap="round" fill="none" />
+                <path class="gill gill-l2" d="M28 49 C10 45 10 55 28 54" stroke="currentColor" stroke-width="3.5"
+                  stroke-linecap="round" fill="none" />
+                <path class="gill gill-l3" d="M30 58 C14 56 14 66 30 62" stroke="currentColor" stroke-width="3.5"
+                  stroke-linecap="round" fill="none" />
+                <path class="gill gill-r1" d="M70 40 C86 34 86 44 70 46" stroke="currentColor" stroke-width="3.5"
+                  stroke-linecap="round" fill="none" />
+                <path class="gill gill-r2" d="M72 49 C90 45 90 55 72 54" stroke="currentColor" stroke-width="3.5"
+                  stroke-linecap="round" fill="none" />
+                <path class="gill gill-r3" d="M70 58 C86 56 86 66 70 62" stroke="currentColor" stroke-width="3.5"
+                  stroke-linecap="round" fill="none" />
+                <ellipse cx="50" cy="51" rx="22" ry="17.5" fill="currentColor" />
+                <circle cx="41.5" cy="49" r="2.5" fill="var(--inverse-surface)" />
+                <circle cx="58.5" cy="49" r="2.5" fill="var(--inverse-surface)" />
+                <path id="axolotl-mouth" d="M44 57 Q50 54 56 57" stroke="var(--inverse-surface)" stroke-width="2.5"
+                  stroke-linecap="round" fill="none" />
+              </svg>
+            </div>
+
+            <span id="pet-status-badge" class="badge badge--danger pet-status-chip">Tired</span>
+          </div>
+        </section>
+
+        <section class="card card--outlined metrics-panel" aria-label="System Metrics">
+          <div class="progress-section">
+            <div class="progress-labels">
+              <span class="label-large">Energy Bar</span>
+              <span id="progress-percentage" class="label-large color-primary">30%</span>
+            </div>
+            <div class="linear-progress" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+              <div id="progress-bar-fill" class="linear-progress__indicator color-state-danger"></div>
+            </div>
+          </div>
+
+          <div class="stats-grid-row">
+            <div class="stat-cell">
+              <span class="label-small">Current Cycle</span>
+              <span id="action-count" class="title-large">0</span>
+            </div>
+            <div class="stat-cell stat-cell--bordered">
+              <span class="label-small">Best Run</span>
+              <span id="highscore-summary-val" class="title-large">--</span>
+            </div>
+          </div>
+        </section>
+      </aside>
+
+      <main class="choices-column" aria-label="Available Interventions">
+        <h2 class="section-title-label">Available Choices</h2>
+        <div id="activity-grid" class="choices-stack"></div>
+      </main>
+    </div>
+  </div>
+
+  <div id="modal-overlay" class="dialog-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title"
+    tabindex="-1">
+    <div class="dialog-surface">
+      <div class="dialog-icon-wrapper">
+        <span id="modal-icon" class="material-symbols-outlined">task_alt</span>
+      </div>
+      <h3 id="modal-title" class="dialog-title">Cycle Complete</h3>
+      <p id="modal-description" class="dialog-supporting-text">The activity run evaluation sequence loop has terminated
+        processing.</p>
+
+      <div class="dialog-data-summary">
+        <div class="summary-metric">
+          <span class="label-medium">Total Actions</span>
+          <span id="modal-stats-turns" class="body-large font-bold">0</span>
+        </div>
+        <div class="summary-metric">
+          <span class="label-medium">Highscore Record</span>
+          <span id="highscore-value" class="body-large font-bold">--</span>
+        </div>
+      </div>
+
+      <div class="dialog-actions">
+        <button id="restart-btn" class="button button--filled">
+          <span class="material-symbols-outlined button__icon">refresh</span>
+          <span class="button__label">Play Again</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/recharge-pet.js"></script>
+  <script src="js/game-utils.js"></script>
+</body>
+
+</html>

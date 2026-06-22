@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Control or Let Go</title>
+  <link rel="stylesheet" href="css/control-or-let-go.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=DM+Sans:wght@400;500&family=Roboto+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <style>
+    @media (min-width: 768px) {
+      .m3-page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 24px;
+      }
+      .m3-page-header-text {
+        flex: 1;
+        text-align: left;
+      }
+      .m3-page-header .m3-header-actions {
+        margin-top: 0 !important;
+        justify-content: flex-end !important;
+      }
+    }
+  </style>
+</head>
+<body>
+<a href="#thoughtSpawner" class="m3-skip-link">Skip to active card sorting workspace</a>
+
+  <div class="m3-app-shell">
+    
+    <header class="top-app-bar" role="banner" style="height: 64px; flex-shrink: 0; background-color: var(--m3-surface-low, #F7F2FA); border-bottom: 1px solid var(--m3-outline-variant, #C4C6D0); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 0 16px; z-index: 10; gap: 8px;">
+      <div style="display: flex; align-items: center; justify-content: flex-start;">
+        <a href="../games.html" class="icon-button" aria-label="Back to Games" style="width: 44px; height: 44px; border-radius: 9999px; border: none; background: transparent; color: var(--m3-text-primary, #1C1B1F); cursor: pointer; display: grid; place-items: center; text-decoration: none;">
+          <span class="material-icons-round">arrow_back</span>
+        </a>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px; justify-content: center;">
+        <span class="material-symbols-outlined" aria-hidden="true" style="color: var(--md-sys-color-primary, var(--md-primary, #D0BCFF)); font-size: 22px;">dashboard</span>
+        <span style="font-family: var(--font-display, 'Plus Jakarta Sans', sans-serif); font-size: 17px; font-weight: 600; color: var(--m3-text-primary, #1C1B1F); white-space: nowrap;">Control or Let Go</span>
+      </div>
+      <div style="display: flex; align-items: center; justify-content: flex-end; gap: 4px;">
+        <button id="theme-toggle" class="icon-button" type="button" aria-label="Switch to light theme" aria-pressed="true" style="width: 44px; height: 44px; border-radius: 9999px; border: none; background: transparent; color: var(--m3-text-primary, #1C1B1F); cursor: pointer; display: grid; place-items: center;">
+          <span class="material-symbols-outlined" aria-hidden="true">light_mode</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="m3-main-container" id="main-content">
+      <div class="m3-page-header">
+        <div class="m3-page-header-text">
+          <h1 class="m3-headline-medium">Cognitive Restructuring Workspace</h1>
+          <p class="m3-body-medium">Isolate active items into your area of direct control or systematically release external events.</p>
+        </div>
+        <div class="m3-header-actions" role="region" aria-label="Current Session Statistics" style="margin-top: 16px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+          <div class="m3-badge" aria-live="polite" id="stat-score" style="background: var(--m3-surface-high, #ECE6F0); padding: 4px 12px; border-radius: 16px; display: flex; align-items: center; gap: 6px;">
+            <span class="material-symbols-outlined" aria-hidden="true" style="font-size: 18px; color: var(--md-sys-color-primary, #D0BCFF);">military_tech</span>
+            <span class="m3-label-medium">Score: <span id="scoreValue" class="mono-num">00</span></span>
+          </div>
+          <div class="m3-badge" aria-live="polite" id="stat-lives" style="background: var(--m3-surface-high, #ECE6F0); padding: 4px 12px; border-radius: 16px; display: flex; align-items: center; gap: 6px;">
+            <span class="material-symbols-outlined" aria-hidden="true" style="font-size: 18px; color: var(--md-sys-color-error, #F2B8B5);">favorite</span>
+            <span class="m3-label-medium">Lives: <span id="livesValue" class="mono-num">03</span></span>
+          </div>
+          <div class="m3-badge" aria-live="polite" id="stat-remaining" style="background: var(--m3-surface-high, #ECE6F0); padding: 4px 12px; border-radius: 16px; display: flex; align-items: center; gap: 6px;">
+            <span class="material-symbols-outlined" aria-hidden="true" style="font-size: 18px; color: var(--md-sys-color-secondary, #CCC2DC);">hourglass_empty</span>
+            <span class="m3-label-medium">Cards: <span id="remainingValue" class="mono-num">20</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="m3-workspace-layout">
+        
+        <section class="m3-card m3-drop-zone" id="zone-control" data-zone="control" role="region" aria-label="Can Control Destination Zone">
+          <div class="zone-meta-block">
+            <span class="material-symbols-outlined icon-semantic-purple" aria-hidden="true">psychology</span>
+            <h2 class="m3-title-medium">Can Control</h2>
+            <p class="m3-body-medium">Direct personal agency &amp; operational choices</p>
+          </div>
+          <button class="m3-button-tonal" id="btnSortControl" aria-label="Sort active card into: Can Control. Or use Left Arrow keyboard key.">
+            <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+            <span class="m3-label-large">Commit Control</span>
+          </button>
+        </section>
+
+        <section class="m3-content-deck" role="region" aria-label="Active Interactive Statement Deck Container">
+          <div class="deck-grid-matrix"></div>
+          <span id="deck-live-announcement" class="sr-only" aria-live="assertive"></span>
+          <div id="thoughtSpawner" class="deck-stage-slot">
+          </div>
+        </section>
+
+        <section class="m3-card m3-drop-zone" id="zone-nocontrol" data-zone="nocontrol" role="region" aria-label="Cannot Control Destination Zone">
+          <div class="zone-meta-block">
+            <span class="material-symbols-outlined icon-semantic-warning" aria-hidden="true">air</span>
+            <h2 class="m3-title-medium">Cannot Control</h2>
+            <p class="m3-body-medium">External environmental variables &amp; constants</p>
+          </div>
+          <button class="m3-button-secondary" id="btnSortNoControl" aria-label="Sort active card into: Cannot Control. Or use Right Arrow keyboard key.">
+            <span class="m3-label-large">Release Outward</span>
+            <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+          </button>
+        </section>
+        
+      </div>
+    </main>
+
+    <div class="m3-dialog-backdrop hidden" id="endScreen" role="dialog" aria-modal="true" aria-labelledby="dialogTitle" aria-describedby="screenMessage">
+      <div class="m3-dialog-window">
+        <div class="m3-dialog-header">
+          <span class="material-symbols-outlined m3-dialog-icon" id="modalIcon" aria-hidden="true">verified</span>
+          <h2 id="dialogTitle" class="m3-headline-medium">Session Terminated</h2>
+        </div>
+        
+        <p id="screenMessage" class="m3-body-large m3-dialog-body-text"></p>
+        
+        <div class="m3-dialog-insight-box">
+          <span class="insight-tag">Cognitive Architecture Analytics Blueprint</span>
+          <p class="m3-body-medium">Systematically partitioning internal actionable workflows from systemic fixed environments drastically curtails executive attention fatigue and reinforces core operational capacity metrics.</p>
+        </div>
+
+        <div class="m3-dialog-actions">
+          <button class="m3-button-primary" id="btnRestart">
+            <span class="material-symbols-outlined" aria-hidden="true">refresh</span>
+            <span class="m3-label-large">Reboot Run Session</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/control-or-let-go.js"></script>
+  <script src="js/game-utils.js"></script>
+</body>
+</html>
+
+
+

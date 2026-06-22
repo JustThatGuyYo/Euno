@@ -76,10 +76,10 @@
         <span class="material-icons-round nav-icon" aria-hidden="true">menu_book</span>
         <span class="nav-label">Diary</span>
       </a>
-      <a href="wellness.html" class="nav-item" aria-label="Wellness">
+      <a href="games.html" class="nav-item" aria-label="Games">
         <span class="nav-indicator" aria-hidden="true"></span>
         <span class="material-icons-round nav-icon" aria-hidden="true">extension</span>
-        <span class="nav-label">Wellness</span>
+        <span class="nav-label">Games</span>
       </a>
       <a href="shop.html" class="nav-item" aria-label="Shop">
         <span class="nav-indicator" aria-hidden="true"></span>
@@ -115,7 +115,7 @@
         <a href="index.html" class="drawer-item"><span class="material-icons-round" aria-hidden="true">home</span>Home</a>
         <a href="checkin.html" class="drawer-item active"><span class="material-icons-round" aria-hidden="true">sentiment_satisfied</span>Check-In</a>
         <a href="diary.html" class="drawer-item"><span class="material-icons-round" aria-hidden="true">menu_book</span>Diary</a>
-        <a href="wellness.html" class="drawer-item"><span class="material-icons-round" aria-hidden="true">extension</span>Wellness</a>
+        <a href="games.html" class="drawer-item"><span class="material-icons-round" aria-hidden="true">extension</span>Games</a>
         <a href="shop.html" class="drawer-item"><span class="material-icons-round" aria-hidden="true">storefront</span>Shop</a>
         <div class="drawer-divider" role="separator"></div>
         <a href="settings.html" class="drawer-item"><span class="material-icons-round" aria-hidden="true">settings</span>Settings</a>
@@ -131,8 +131,10 @@
           <span class="mobile-page-title">Check-In</span>
           <button class="streak-cal-btn" id="streak-cal-btn" aria-label="View streak calendar" type="button" style="margin-left:auto;">
             <span class="material-icons-round" aria-hidden="true">calendar_month</span>
-          </button>
         </div>
+        <button id="full-info-fab" class="btn-filled" style="position: fixed; bottom: 90px; right: 24px; z-index: 90; border-radius: 9999px; width: 56px; height: 56px; padding: 0; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.2);" aria-label="Understanding Your Check-In Results" title="Understanding Check-In Results">
+          <span class="material-icons-round" aria-hidden="true" style="margin: 0; font-size: 28px;">info</span>
+        </button>
         <header class="page-header checkin-page-header">
           <div class="checkin-header-text">
             <h1 class="page-title">Daily Check-In</h1>
@@ -283,7 +285,7 @@
     <a href="checkin.html" class="bnav-item active" aria-label="Check-In">
       <div class="bnav-icon-wrap"><span class="material-icons-round bnav-icon" aria-hidden="true">sentiment_satisfied</span></div>
     </a>
-    <a href="wellness.html" class="bnav-item bnav-center" aria-label="Wellness">
+    <a href="games.html" class="bnav-item bnav-center" aria-label="Games">
       <span class="bnav-fab" aria-hidden="true"><span class="material-icons-round" aria-hidden="true">extension</span></span>
     </a>
     <a href="diary.html" class="bnav-item" aria-label="Diary">
@@ -379,6 +381,21 @@
     <div class="picker-actions">
       <button type="button" class="btn-text" id="tp-cancel">Cancel</button>
       <button type="button" class="btn-filled" id="tp-ok">OK</button>
+    </div>
+  </div>
+</div>
+
+<div id="condition-info-dialog" class="picker-dialog" role="dialog" aria-modal="true" aria-label="Condition Info" aria-hidden="true" style="display:none; z-index: 200;">
+  <div class="picker-scrim" id="condition-info-scrim"></div>
+  <div class="picker-surface" style="max-width: 500px; width: calc(100% - 32px); max-height: 80vh; display: flex; flex-direction: column; overflow: hidden; padding: 24px; text-align: left; box-sizing: border-box;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-shrink: 0;">
+      <h2 id="condition-info-title" style="font-size: 1.5rem; color: var(--md-primary); margin: 0;">Title</h2>
+      <button type="button" class="icon-btn" id="condition-info-close" aria-label="Close">
+        <span class="material-icons-round" aria-hidden="true">close</span>
+      </button>
+    </div>
+    <div style="overflow-y: auto; flex: 1; padding-right: 8px;">
+      <div id="condition-info-body" class="condition-info-content" style="font-size: 1rem; color: var(--md-text-primary); line-height: 1.6;"></div>
     </div>
   </div>
 </div>

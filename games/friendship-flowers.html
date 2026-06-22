@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garden Studio — Grow Friendship Flowers</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/friendship-flowers.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+</head>
+
+<body>
+    <a class="skip-link" href="#garden-grid">Skip to garden</a>
+    <a class="skip-link" href="#prompts-list">Skip to actions</a>
+
+    <div class="app-container">
+        <header class="top-app-bar" role="banner" style="height: 64px; flex-shrink: 0; background-color: var(--md-sys-color-surface-container-low, var(--md-surface-low, #1D1B20)); border-bottom: 1px solid var(--md-sys-color-outline-variant, var(--md-outline-variant, #49454F)); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 0 16px; z-index: 10; gap: 8px;">
+          <div style="display: flex; align-items: center; justify-content: flex-start;">
+            <a href="../games.html" class="icon-button" aria-label="Back to Games" style="width: 44px; height: 44px; border-radius: 9999px; border: none; background: transparent; color: var(--md-sys-color-on-surface, var(--md-text-primary, #E6E1E5)); cursor: pointer; display: grid; place-items: center; text-decoration: none;">
+              <span class="material-icons-round">arrow_back</span>
+            </a>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px; justify-content: center;">
+            <span class="material-symbols-outlined" aria-hidden="true" style="color: var(--md-sys-color-primary, var(--md-primary, #D0BCFF)); font-size: 22px;">local_florist</span>
+            <span style="font-family: var(--font-display, 'Plus Jakarta Sans', sans-serif); font-size: 17px; font-weight: 600; color: var(--md-sys-color-on-surface, var(--md-text-primary, #E6E1E5)); white-space: nowrap;">Garden Studio</span>
+          </div>
+          <div style="display: flex; align-items: center; justify-content: flex-end; gap: 4px;">
+            <button id="theme-toggle" class="icon-button" type="button" aria-label="Switch theme" aria-pressed="false" style="width: 44px; height: 44px; border-radius: 9999px; border: none; background: transparent; color: var(--md-sys-color-on-surface, var(--md-text-primary, #E6E1E5)); cursor: pointer; display: grid; place-items: center;">
+              <span class="material-symbols-outlined" aria-hidden="true">dark_mode</span>
+            </button>
+          </div>
+        </header>
+
+        <div class="main-layout">
+            <aside class="sidebar" aria-labelledby="panel-title">
+                <div class="sidebar-inner">
+                    <div>
+                        <h2 id="panel-title" class="headline-medium">Nurture Connections</h2>
+                        <p class="body-medium text-secondary" style="margin-top:5px;">Commit to a real-world social
+                            action to grow your digital garden.</p>
+                    </div>
+
+                    <div class="progress-section">
+                        <div class="progress-header">
+                            <span class="label-large" id="progress-label">Garden Progress</span>
+                            <span id="progress-text" class="label-large" aria-live="polite" aria-atomic="true">0%</span>
+                        </div>
+                        <div class="progress-track" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                            aria-valuemax="100" aria-labelledby="progress-label" id="progress-bar-container">
+                            <div id="progress-indicator" class="progress-indicator"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="prompt-container" style="margin-top:12px;">
+                    <h3 class="title-medium">Available Actions</h3>
+                    <div id="prompts-list" class="prompts-list" role="group" aria-label="Social action prompts"></div>
+                </div>
+
+                <div class="actions-footer">
+                    <button id="action-btn" class="btn btn-primary" type="button" disabled
+                        aria-describedby="action-hint">
+                        <span class="material-symbols-outlined" aria-hidden="true">water_drop</span>
+                        <span class="btn-text">Plant This Action</span>
+                    </button>
+                    <p id="action-hint" class="action-hint">Select an action above to plant it</p>
+                    <button id="reset-btn" class="btn btn-text-only" type="button"
+                        aria-label="Reset garden and start over">
+                        <span class="material-symbols-outlined" aria-hidden="true">refresh</span>
+                        <span class="btn-text">Reset Garden</span>
+                    </button>
+                </div>
+            </aside>
+
+            <main class="content-viewport">
+                <div class="grid-container">
+                    <div id="garden-grid" class="garden-grid" role="region"
+                        aria-label="Digital garden — 9 flower patches" aria-live="polite"></div>
+                </div>
+
+                <div class="carousel-viewport" id="carousel-viewport" aria-label="Flower carousel" role="region">
+                    <span class="carousel-label">Your Garden</span>
+                    <div class="carousel-track-wrap" id="carousel-track" aria-label="Flower patches, swipe to browse">
+                    </div>
+                    <div class="carousel-dot-row" id="carousel-dots" role="tablist" aria-label="Carousel navigation">
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <div id="completion-overlay" class="modal-overlay hidden" role="dialog" aria-modal="true"
+            aria-labelledby="modal-title" aria-describedby="modal-desc">
+            <div class="modal-card">
+                <div class="modal-icon-wrapper" aria-hidden="true">
+                    <span class="material-symbols-outlined">workspace_premium</span>
+                </div>
+                <h2 id="modal-title" class="headline-large">Garden Flourishing!</h2>
+                <p id="modal-desc" class="body-large text-secondary">All patches have fully matured. Your real-world
+                    commitments are building genuine human connection.</p>
+                <div class="modal-actions">
+                    <button id="modal-close-btn" class="btn btn-tonal" type="button">Return to Studio</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/friendship-flowers.js"></script>
+  <script src="js/game-utils.js"></script>
+</body>
+
+</html>
